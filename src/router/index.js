@@ -1,6 +1,6 @@
 import React from 'react'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import HomePage from '../pages/HomePage'
+import HomePage from '../pages/HomePage.jsx'
 
 export default function index() {
     return (

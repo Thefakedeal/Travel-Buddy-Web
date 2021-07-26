@@ -1,4 +1,5 @@
 import Routes from "./router/index";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 
 
