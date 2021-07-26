@@ -9,6 +9,10 @@ const routes = [
     title: "Home",
     href: "/",
   },
+  {
+    title: "Places",
+    href:"/places"
+  }
 ];
 
 const SideDrawer = ({ visible, onClose }) => {
@@ -17,7 +21,9 @@ const SideDrawer = ({ visible, onClose }) => {
     <Drawer placement="right" visible={visible} onClose={onClose}>
       <List>
         {routes.map((route) => (
-          <List.Item onClick={hisory.push(route.href)} key={route.title}>
+          <List.Item onClick={()=>{
+            hisory.push(route.href)
+          }} key={route.title}>
             <Link to={route.href}>{route.title}</Link>
           </List.Item>
         ))}
@@ -34,10 +40,10 @@ const Links = () => {
       className="d-flex flex-wrap"
       theme="dark"
     >
-      {routes.map(({ href, title, key }) => (
+      {routes.map((route) => (
         <Menu.Item>
-          <Link href={href} key={key} className="d-none d-lg-block">
-            <a className="text-decoration-none text-white ">{title}</a>
+          <Link to={route.href} key={route.title} className="d-none d-lg-block">
+            <a className="text-decoration-none text-white ">{route.title}</a>
           </Link>
         </Menu.Item>
       ))}
