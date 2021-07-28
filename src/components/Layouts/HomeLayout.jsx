@@ -6,7 +6,7 @@ export default function HomeLayout({children}) {
     return (
        <Layout style={layout} >
          <Navbar />
-         <Layout.Content style={{ flex: 1 }}>{children}</Layout.Content>
+         <Layout.Content style={{ flex: 1, display:"flex", flexDirection:"column"}}>{children}</Layout.Content>
          <Footer/>
        </Layout>
     )

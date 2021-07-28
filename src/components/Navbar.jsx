@@ -27,6 +27,11 @@ const SideDrawer = ({ visible, onClose }) => {
             <Link to={route.href}>{route.title}</Link>
           </List.Item>
         ))}
+        <List.Item onClick={()=>{
+            hisory.push("/login")
+          }} >
+            <Link to="/login">Login</Link>
+          </List.Item>
       </List>
     </Drawer>
   );
@@ -47,6 +52,11 @@ const Links = () => {
           </Link>
         </Menu.Item>
       ))}
+      <Menu.Item>
+          <Link to='/login' className="d-none d-lg-block">
+            <a className="text-decoration-none text-white ">Login</a>
+          </Link>
+        </Menu.Item>
     </Menu>
   );
 };
