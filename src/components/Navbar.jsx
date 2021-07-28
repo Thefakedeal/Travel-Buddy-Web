@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import {FaRedhat} from 'react-icons/fa'
+import { FaRedhat } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
-import { Drawer, Layout, List, Button, Menu , Typography} from "antd";
+import { Drawer, Layout, List, Button, Menu, Typography } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { logout } from "../helpers/auth";
+import useAuth from "../hooks/useAuth";
 
 const routes = [
   {
@@ -11,33 +13,57 @@ const routes = [
   },
   {
     title: "Places",
-    href:"/places"
-  }
+    href: "/places",
+  },
 ];
 
 const SideDrawer = ({ visible, onClose }) => {
   const hisory = useHistory();
+  const { user, setToken } = useAuth();
   return (
     <Drawer placement="right" visible={visible} onClose={onClose}>
       <List>
         {routes.map((route) => (
-          <List.Item onClick={()=>{
-            hisory.push(route.href)
-          }} key={route.title}>
+          <List.Item
+            onClick={() => {
+              hisory.push(route.href);
+            }}
+            key={route.title}
+          >
             <Link to={route.href}>{route.title}</Link>
           </List.Item>
         ))}
-        <List.Item onClick={()=>{
-            hisory.push("/login")
-          }} key="login">
+
+        {user ? (
+          <List.Item
+            onClick={async () => {
+              const success = await logout();
+              if (success) {
+                setToken(null);
+              }
+            }}
+            key="logout"
+          >
+            <Link to="/">Logout</Link>
+          </List.Item>
+        ) : (
+          <List.Item
+            onClick={() => {
+              hisory.push("/login");
+            }}
+            key="login"
+          >
             <Link to="/login">Login</Link>
           </List.Item>
+        )}
       </List>
     </Drawer>
   );
 };
 
 const Links = () => {
+  const { user, setToken } = useAuth();
+
   return (
     <Menu
       mode="horizontal"
@@ -48,15 +74,32 @@ const Links = () => {
       {routes.map((route) => (
         <Menu.Item>
           <Link to={route.href} key={route.title} className="d-none d-lg-block">
-            <span className="text-decoration-none text-white ">{route.title}</span>
+            <span className="text-decoration-none text-white ">
+              {route.title}
+            </span>
           </Link>
         </Menu.Item>
       ))}
-      <Menu.Item>
-          <Link to='/login' key="login" className="d-none d-lg-block">
+      {user ? (
+        <Menu.Item
+          onClick={async () => {
+            const success = await logout();
+            if (success) {
+              setToken(null);
+            }
+          }}
+        >
+          <Link to="." key="logout" className="d-none d-lg-block">
+            <span className="text-decoration-none text-white ">Logout</span>
+          </Link>
+        </Menu.Item>
+      ) : (
+        <Menu.Item>
+          <Link to="/login" key="login" className="d-none d-lg-block">
             <span className="text-decoration-none text-white ">Login</span>
           </Link>
         </Menu.Item>
+      )}
     </Menu>
   );
 };
@@ -66,10 +109,12 @@ export default function Navbar() {
   return (
     <Layout.Header className="nav d-flex justify-content-between align-items-center px-4 py-0">
       <div className="py-auto">
-        <FaRedhat className="text-white fs-1"/>
-        <Typography.Text className="px-2 fs-6 text-white d-none d-lg-inline-block">Travel Buddy</Typography.Text>
+        <FaRedhat className="text-white fs-1" />
+        <Typography.Text className="px-2 fs-6 text-white d-none d-lg-inline-block">
+          Travel Buddy
+        </Typography.Text>
       </div>
-      <Links  />
+      <Links />
       <Button
         type="text"
         className="d-flex align-items-center d-lg-none fs-4 text-white py-auto"

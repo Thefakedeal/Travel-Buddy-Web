@@ -11,3 +11,13 @@ export async function register(body){
         return {status: err.status||400, body: err.body||{message:'Something Went Wrong'}, success: false}
     }
 }
+
+export async function logout() {
+    try{
+        const token = localStorage.getItem('token');
+        const response = await doPost({path:'logout',token:token});
+        return response.ok;
+    }catch(err){
+        return false;
+    }
+}

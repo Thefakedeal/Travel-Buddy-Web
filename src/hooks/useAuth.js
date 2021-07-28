@@ -3,13 +3,16 @@ import { doPost } from '../helpers/request';
 
 export default function useAuth() {
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));
 
     const fetchUser = async ()=>{
         setLoading(true);
-        const user = await doPost({path:'user'});
-        setUser(user);
+        const response = await doPost({path:'user'});
+        if(response.ok){
+            const user = await response.json();
+            setUser(user);
+        }
         setLoading(false);
     }
 
