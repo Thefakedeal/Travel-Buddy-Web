@@ -29,7 +29,7 @@ const SideDrawer = ({ visible, onClose }) => {
         ))}
         <List.Item onClick={()=>{
             hisory.push("/login")
-          }} >
+          }} key="login">
             <Link to="/login">Login</Link>
           </List.Item>
       </List>
@@ -48,13 +48,13 @@ const Links = () => {
       {routes.map((route) => (
         <Menu.Item>
           <Link to={route.href} key={route.title} className="d-none d-lg-block">
-            <a className="text-decoration-none text-white ">{route.title}</a>
+            <span className="text-decoration-none text-white ">{route.title}</span>
           </Link>
         </Menu.Item>
       ))}
       <Menu.Item>
-          <Link to='/login' className="d-none d-lg-block">
-            <a className="text-decoration-none text-white ">Login</a>
+          <Link to='/login' key="login" className="d-none d-lg-block">
+            <span className="text-decoration-none text-white ">Login</span>
           </Link>
         </Menu.Item>
     </Menu>

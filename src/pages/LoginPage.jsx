@@ -1,9 +1,11 @@
 import React from "react";
-import { Typography, Form, Input, Button } from "antd";
+import { Typography, Input, Button } from "antd";
 import {UserOutlined, LockOutlined} from '@ant-design/icons'
 import HomeLayout from "../components/Layouts/HomeLayout";
 import {Link} from 'react-router-dom'
 import Background from "../components/Background";
+import { Formik, Field } from "formik";
+
 export default function LoginPage() {
   return (
     <HomeLayout>
@@ -15,39 +17,60 @@ export default function LoginPage() {
             </Typography.Title>
           </div>
           <div className="card-body">
-            <Form
-              name="basic"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
-              initialValues={{ remember: true }}
+            <Formik
+              initialValues={
+                {
+                  email:'',
+                  password:''
+                }
+              }
+              onSubmit={(values)=>{
+                console.log(values)
+              }}
             >
-              <Form.Item
-                label="Email"
-                name="Email"
-                rules={[
-                  { required: true, message: "Please input your Email!" },
-
-                ]}
-              >
-                <Input prefix={<UserOutlined />}  placeholder="Email"/>
-              </Form.Item>
-
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  { required: true, message: "Please input your password!" },
-                ]}
-              >
-                <Input.Password prefix={<LockOutlined/>}  placeholder="Password"/>
-              </Form.Item>
-
-              <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit">
-                  Submit
-                </Button>
-              </Form.Item>
-            </Form>
+              {({values, handleSubmit, handleChange, handleBlur, isSubmitting})=>(
+               
+               <div>
+              
+               <div className="row align-items-center py-2">
+                 <div className="col-md-3">Email <span className="text-danger">*</span></div>
+                 <div className="col-md-9">
+                   <Field
+                     component={Input}
+                     name="email"
+                     onChange={handleChange("email")}
+                     prefix={<UserOutlined />}
+                     placeholder="Email"
+                   />
+                 </div>
+               </div>
+               <div className="row align-items-center py-2">
+                 <div className="col-md-3">Password <span className="text-danger">*</span></div>
+                 <div className="col-md-9">
+                   <Field
+                     component={Input.Password}
+                     name="password"
+                     onChange={handleChange("password")}
+                     prefix={<LockOutlined />}
+                     placeholder="Password"
+                   />
+                 </div>
+               </div>
+               
+               <div className="py-4">
+                 <Button
+                   className="float-end"
+                   onClick={handleSubmit}
+                   type="primary"
+                   disabled={isSubmitting}
+                 >
+                   <UserOutlined /> Login
+                 </Button>
+               </div>
+             </div>
+               
+              )}
+            </Formik>
             <div className="text-center ">
                 Not A User? <Link to="/register">Register</Link> 
             </div>
