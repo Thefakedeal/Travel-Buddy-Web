@@ -35,6 +35,7 @@ export default function RegisterForm() {
         if (data.success) {
           const token = data.body.token;
           setToken(token);
+          history.replace("/");
         }
         //Error
         const errorArray = data.body?.errors || [];
@@ -44,7 +45,7 @@ export default function RegisterForm() {
         }, {});
         setErrors(errors);
         setStatus(data.body.message);
-        history.replace("/");
+        setSubmitting(false);
       }}
     >
       {({

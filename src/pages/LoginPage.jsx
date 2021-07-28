@@ -1,10 +1,9 @@
 import React from "react";
-import { Typography, Input, Button } from "antd";
-import {UserOutlined, LockOutlined} from '@ant-design/icons'
+import { Typography} from "antd";
 import HomeLayout from "../components/Layouts/HomeLayout";
 import {Link} from 'react-router-dom'
 import Background from "../components/Background";
-import { Formik, Field } from "formik";
+import LoginForm from '../components/forms/LoginForm';
 
 export default function LoginPage() {
   return (
@@ -17,60 +16,7 @@ export default function LoginPage() {
             </Typography.Title>
           </div>
           <div className="card-body">
-            <Formik
-              initialValues={
-                {
-                  email:'',
-                  password:''
-                }
-              }
-              onSubmit={(values)=>{
-                console.log(values)
-              }}
-            >
-              {({values, handleSubmit, handleChange, handleBlur, isSubmitting})=>(
-               
-               <div>
-              
-               <div className="row align-items-center py-2">
-                 <div className="col-md-3">Email <span className="text-danger">*</span></div>
-                 <div className="col-md-9">
-                   <Field
-                     component={Input}
-                     name="email"
-                     onChange={handleChange("email")}
-                     prefix={<UserOutlined />}
-                     placeholder="Email"
-                   />
-                 </div>
-               </div>
-               <div className="row align-items-center py-2">
-                 <div className="col-md-3">Password <span className="text-danger">*</span></div>
-                 <div className="col-md-9">
-                   <Field
-                     component={Input.Password}
-                     name="password"
-                     onChange={handleChange("password")}
-                     prefix={<LockOutlined />}
-                     placeholder="Password"
-                   />
-                 </div>
-               </div>
-               
-               <div className="py-4">
-                 <Button
-                   className="float-end"
-                   onClick={handleSubmit}
-                   type="primary"
-                   disabled={isSubmitting}
-                 >
-                   <UserOutlined /> Login
-                 </Button>
-               </div>
-             </div>
-               
-              )}
-            </Formik>
+            <LoginForm />
             <div className="text-center ">
                 Not A User? <Link to="/register">Register</Link> 
             </div>
