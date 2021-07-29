@@ -2,6 +2,7 @@ import React from 'react'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import HomePage from '../pages/HomePage.jsx'
 import LoginPage from '../pages/LoginPage.jsx'
+import PlacePage from '../pages/PlacePage.jsx'
 import PlacesPage from '../pages/PlacesPage.jsx'
 import RegisterPage from '../pages/RegisterPage.jsx'
 
@@ -17,6 +18,10 @@ export default function index() {
 
             <Route path='/places' exact>
                 <PlacesPage />
+            </Route>
+
+            <Route path='/places/:id' exact>
+                <PlacePage />
             </Route>
 
             <Route path='/login' exact>

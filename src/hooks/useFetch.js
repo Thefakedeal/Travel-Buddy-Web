@@ -2,7 +2,10 @@ import useSWR from "swr";
 
 import { baseUrl } from "../helpers/request";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (...args) => fetch(...args).then((res) =>{
+  if(res.ok) return res.json()
+  throw res.statusText;
+});
 
 export default function useFetch(path, query= {}) {
   const params = new URLSearchParams(query).toString();

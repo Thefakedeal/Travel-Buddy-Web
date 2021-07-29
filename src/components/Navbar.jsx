@@ -44,7 +44,7 @@ const SideDrawer = ({ visible, onClose }) => {
             }}
             key="logout"
           >
-            <Link to="/">Logout</Link>
+            <div to="/">Logout</div>
           </List.Item>
         ) : (
           <List.Item
@@ -89,9 +89,9 @@ const Links = () => {
             }
           }}
         >
-          <Link to="." key="logout" className="d-none d-lg-block">
+          <div to="." key="logout" className="d-none d-lg-block">
             <span className="text-decoration-none text-white ">Logout</span>
-          </Link>
+          </div>
         </Menu.Item>
       ) : (
         <Menu.Item>
@@ -106,9 +106,12 @@ const Links = () => {
 
 export default function Navbar() {
   const [visible, setVisible] = useState(false);
+  const history = useHistory();
   return (
     <Layout.Header className="nav d-flex justify-content-between align-items-center px-4 py-0">
-      <div className="py-auto">
+      <div className="py-auto" onClick={()=>{
+        history.push('/');
+      }}>
         <FaRedhat className="text-white fs-1" />
         <Typography.Text className="px-2 fs-6 text-white d-none d-lg-inline-block">
           Travel Buddy

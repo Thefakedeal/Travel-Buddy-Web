@@ -7,9 +7,11 @@ import {
   Popup,
   useMapEvent,
 } from "react-leaflet";
+import {Link} from 'react-router-dom'
 import getLocation from "../helpers/location";
 import { setLocation, } from "../app/locationSlice";
 import { useSelector, useDispatch } from "react-redux";
+import Spinner from "./Spinner";
 
 function MapControl({ center, zoom }) {
   const map = useMap();
@@ -20,9 +22,8 @@ function MapControl({ center, zoom }) {
   return null;
 }
 
-export default function Map({ places = [] }) {
+export default function Map({ places = [], center }) {
   const location = useSelector((store) => store.location);
-  const markers = useSelector(state => state.markers);
   const [zoom, setZoom] = useState(2);
   const dispatch = useDispatch();
   
@@ -34,30 +35,38 @@ export default function Map({ places = [] }) {
       });
     }
     if (location.hasLocation) {
-      setZoom(13);
+      setZoom(17);
     }
   }, [location]);
 
-  return (
-    <MapContainer
-      center={location.coordinates}
-      zoom={zoom}
-      scrollWheelZoom={false}
-      className="map"
-    >
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={location.coordinates}>
-        <Popup>Your Location</Popup>
-      </Marker>
-      {places.map((place) => (
-        <Marker position={[place.location.coordinates[1], place.location.coordinates[0]]} key={place._id}>
-          <Popup>{place.name}</Popup>
+  if(location.hasLocation){
+    
+    return (
+      <MapContainer
+        center={center || location.coordinates}
+        zoom={zoom}
+        scrollWheelZoom={false}
+        className="map"
+      >
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={location.coordinates}>
+          <Popup>Your Location</Popup>
         </Marker>
-      ))}
-      <MapControl center={location.coordinates} zoom={zoom} />
-    </MapContainer>
-  );
+        {places.map((place) => (
+          <Marker position={[place.location.coordinates[1], place.location.coordinates[0]]} key={place._id}>
+            <Popup>
+              <Link to={`/places/${place.id}`}>
+                {place.name}
+              </Link>
+            </Popup>
+          </Marker>
+        ))}
+        <MapControl center={center || location.coordinates} zoom={zoom} />
+      </MapContainer>
+    );
+  }
+  return <Spinner />
 }

@@ -40,3 +40,21 @@
 }
 
 .map { height: 500px; }
+
+.slides {
+  position: relative;
+
+}
+
+.slides .slick-prev, .slides .slick-next {
+  position: absolute;
+  top: 40%;
+  z-index: 2;
+}
+
+.slides .slick-prev {
+  left: 5%;
+}
+.slides .slick-next {
+  right: 5%;
+}

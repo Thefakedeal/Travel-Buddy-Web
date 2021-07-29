@@ -41,7 +41,7 @@ function PlacesSection() {
     return (
       <>
         <div className="py-4">
-          <Map coordinates={location.coordinates} places={data.data}/>
+          <Map coordinates={location.coordinates} places={data.data || []}/>
         </div>
         <div className="container-fluid py-4 gy-4 row">
           {data.data.map((place) => (
