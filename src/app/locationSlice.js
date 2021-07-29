@@ -8,8 +8,8 @@ const location = createSlice({
     },
     reducers: {
         setLocation(state, action){
-            state.hasLocation = true;
             state.coordinates = action.payload
+            state.hasLocation = true;
         }
     }
 })
