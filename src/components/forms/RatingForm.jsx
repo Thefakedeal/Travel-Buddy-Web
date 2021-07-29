@@ -15,7 +15,7 @@ const RatingSchema = Yup.object().shape({
 });
 
 export default function RatingForm({ id }) {
-  const [stars, setStars] = useState(1);
+  const [stars, setStars] = useState(0);
   const [comment, setComment] = useState("");
 
   const history = useHistory();

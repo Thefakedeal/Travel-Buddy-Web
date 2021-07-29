@@ -15,6 +15,10 @@ const routes = [
     title: "Places",
     href: "/places",
   },
+  {
+    title: "Add Place",
+    href: "/places/create",
+  }
 ];
 
 const SideDrawer = ({ visible, onClose }) => {
