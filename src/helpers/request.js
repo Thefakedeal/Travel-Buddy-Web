@@ -19,6 +19,25 @@ export function doPost({method= 'POST', body, path='',token=''}){
   return fetch(url, options);
 }
 
+export function doPostForm({method= 'POST', body, path='',token=''}){
+
+  const headers = {
+    'Authorization' :  `Bearer ${token}`
+  }
+
+  const options = {
+    method: method,
+    headers: headers, 
+    body: body
+    ,
+  };
+  for (const item of body.values()) {
+    console.log(item)
+  }
+  const url = new URL(path, baseUrl).toString();
+  return fetch(url, options);
+}
+
 export function doGet({query={},path='',token=''}){
     const params = new URLSearchParams(query).toString();
     const url = new URL(path, baseUrl).toString();

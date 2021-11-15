@@ -15,7 +15,7 @@ const RatingSchema = Yup.object().shape({
 });
 
 export default function RatingForm({ id }) {
-  const [stars, setStars] = useState(0);
+  const [stars, setStars] = useState(1);
   const [comment, setComment] = useState("");
 
   const history = useHistory();
@@ -55,6 +55,7 @@ export default function RatingForm({ id }) {
         comment: comment,
         placeID: id,
       }}
+      enableReinitialize = {true}
       validationSchema={RatingSchema}
       onSubmit={async (values, { setSubmitting }) => {
         try {

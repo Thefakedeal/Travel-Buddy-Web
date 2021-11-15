@@ -1,5 +1,6 @@
 import React from 'react'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import AddPage from '../pages/AddPage.jsx'
 import HomePage from '../pages/HomePage.jsx'
 import LoginPage from '../pages/LoginPage.jsx'
 import PlacePage from '../pages/PlacePage.jsx'
@@ -18,6 +19,10 @@ export default function index() {
 
             <Route path='/places' exact>
                 <PlacesPage />
+            </Route>
+
+            <Route path='/places/create' exact>
+                <AddPage />
             </Route>
 
             <Route path='/places/:id' exact>
